@@ -1,0 +1,2 @@
+# symapp
+Sym.app
