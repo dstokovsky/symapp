@@ -2,3 +2,6 @@
 .env.*.php
 .env.php
 .env
+/app/storage
+composer.lock
+/nbproject/
