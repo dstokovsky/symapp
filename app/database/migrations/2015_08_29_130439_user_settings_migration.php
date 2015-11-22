@@ -20,7 +20,6 @@ class UserSettingsMigration extends Migration
                 $table->timestamps();
                 $table->index(['user_id', 'name']);
                 $table->index('user_id');
-                $table->primary('id');
             });
         }
     }

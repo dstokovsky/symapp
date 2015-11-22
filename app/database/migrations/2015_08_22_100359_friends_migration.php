@@ -17,7 +17,6 @@ class FriendsMigration extends Migration
                 $table->integer('user_id');
                 $table->integer('friend_id');
                 $table->timestamps();
-                $table->primary('id');
                 $table->unique(['user_id', 'friend_id']);
                 $table->index('user_id');
                 $table->index('friend_id');

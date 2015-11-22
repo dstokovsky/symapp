@@ -14,12 +14,12 @@ class UserMigration extends Migration
             Schema::create('user', function (Blueprint $table) {
                 $table->engine = 'InnoDB';
                 $table->increments('id');
-                $table->string('email', 100)->unique();
+                $table->string('email', 100);
                 $table->string('password', 200);
                 $table->enum('account', ['email', 'facebook', 'linkedin']);
                 $table->string('first_name', 50)->default('');
                 $table->string('second_name', 50)->default('');
-                $table->primary('id');
+                $table->unique('email');
                 $table->timestamps();
             });
         }

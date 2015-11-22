@@ -21,7 +21,6 @@ class MessageMigration extends Migration
                 $table->index(['author_id', 'recipient_id']);
                 $table->index('author_id');
                 $table->index('recipient_id');
-                $table->primary('id');
             });
         }
     }

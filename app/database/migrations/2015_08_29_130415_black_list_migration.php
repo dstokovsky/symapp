@@ -20,7 +20,6 @@ class BlackListMigration extends Migration
                 $table->index(['user_id', 'banned_user_id']);
                 $table->index('user_id');
                 $table->index('banned_user_id');
-                $table->primary('id');
             });
         }
     }
