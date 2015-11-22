@@ -34,6 +34,10 @@ class FriendController extends \BaseController
         if(empty($friend)){
             return new Response('Friend user not found', 404, ['Content-Type' => 'application/json']);
         }
+        if(Blacklist::whereRaw('user_id=? and banned_user_id=?', [$friend->id, $user->id])->count() > 0){
+            return new Response("User #{$user->id} is in #{$friend->id} user's blacklist", 
+                409, ['Content-Type' => 'application/json']);
+        }
         
         $model = new Friend();
         $model->user_id = $user->id;

@@ -12,6 +12,10 @@ class UserController extends \BaseController
 	 */
 	public function create()
 	{
+        $key = Input::get('key', '');
+        if(!password_verify(Config::get('app.key'), $key)){
+            return new Response('Forbidden', 403, ['Content-Type' => 'application/json']);
+        }
 		$user = json_decode(Input::get('user', ''));
         if(empty($user)){
             return new Response('No data specified for new user or it was an invalid JSON', 409, ['Content-Type' => 'application/json']);
@@ -75,6 +79,15 @@ class UserController extends \BaseController
                 }
             }
         }
+        
+        $client_id = md5(Config::get('app.key') . $profile->id . $profile->created_at);
+        $client_secret = md5(Config::get('app.key') . $profile->email . $profile->created_at);
+        DB::table('oauth_clients')->insert(
+            ['id' => $client_id, 'secret' => $client_secret, 'name' => implode('-', [$profile->id, $profile->email]),
+                'created_at' => date('Y-m-d H:i:s'), 'updated_at' => date('Y-m-d H:i:s'),]
+        );
+        $user->client_id = $client_id;
+        $user->client_secret = $client_secret;
         
         return (array)$user;
 	}

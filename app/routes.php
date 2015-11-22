@@ -15,11 +15,11 @@ Route::post('oauth/access_token', 'OAuthController@postAccessToken');
 Route::post('/api/users', 'UserController@create');
 Route::group(array('before' => 'oauth'), function(){
     //-----------------------Blacklists's actions--------------------------------------
-    Route::post('/api/blacklist/{user_id}/{banned_user_id}', 'BlacklistController@add')
+    Route::post('/api/blacklists/{user_id}/{banned_user_id}', 'BlacklistController@add')
         ->where(['user_id' => '[0-9]+', 'banned_user_id' => '[0-9]+']);
-    Route::get('/api/blacklist/{user_id}', 'BlacklistController@show')
+    Route::get('/api/blacklists/{user_id}', 'BlacklistController@show')
         ->where('user_id', '[0-9]+');
-    Route::delete('/api/blacklist/{user_id}/{banned_user_id}', 'BlacklistController@delete')
+    Route::delete('/api/blacklists/{user_id}/{banned_user_id}', 'BlacklistController@delete')
         ->where(['user_id' => '[0-9]+', 'banned_user_id' => '[0-9]+']);
     Route::resource('blacklist', 'BlacklistController');
     //---------------------------------------------------------------------------------

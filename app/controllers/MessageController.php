@@ -31,6 +31,10 @@ class MessageController extends \BaseController
         if(empty($recipient)){
             return new Response('Recipient user not found', 404, ['Content-Type' => 'application/json']);
         }
+        if(Blacklist::whereRaw('user_id=? and banned_user_id=?', [$recipient->id, $author->id])->count() > 0){
+            return new Response("User #{$author->id} is in #{$recipient->id} user's blacklist", 
+                409, ['Content-Type' => 'application/json']);
+        }
         if(!Input::has('text') || Input::get('text', '') === ''){
             return new Response('Message text is missed', 409, ['Content-Type' => 'application/json']);
         }
